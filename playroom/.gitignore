@@ -9,3 +9,5 @@
 *.tsbuildinfo
 next-env.d.ts
 # .researcher is intentionally committed (build-time mirror)
+
+.vercel

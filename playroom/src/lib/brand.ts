@@ -7,7 +7,7 @@ export const BRAND = {
   siteUrl: "https://grain-offer-researcher.vercel.app",
 } as const;
 
-export type ModeId = "scratch" | "sharpen" | "diagnose" | "duel";
+export type ModeId = "scratch" | "sharpen" | "diagnose" | "duel" | "audit";
 
 export type ModeMeta = {
   id: ModeId;
@@ -63,6 +63,19 @@ export const MODES: Record<ModeId, ModeMeta> = {
     starter: "My market is ",
     maxTokens: 900,
   },
+  audit: {
+    id: "audit",
+    label: "Audit my market",
+    subtitle: "Live competitor research.",
+    blurb: "Grain searches the web right now — reads competitor offers, maps their mechanisms, finds their sophistication stage, and identifies the gap no one owns. Based on live data, not training knowledge.",
+    hex: "#5E5CE6",       // Apple indigo
+    bgHex: "#EEEEFF",
+    borderHex: "#C5C4FF",
+    glyph: "⊛",
+    placeholder: "Name your market and who you serve. e.g. \"Business coaching for startup founders\" or \"Email marketing for e-commerce brands.\"",
+    starter: "Audit the competitor landscape for ",
+    maxTokens: 3000,
+  },
   duel: {
     id: "duel",
     label: "Duel",
@@ -78,4 +91,4 @@ export const MODES: Record<ModeId, ModeMeta> = {
   },
 };
 
-export const MODE_ORDER: ModeId[] = ["scratch", "sharpen", "diagnose"];
+export const MODE_ORDER: ModeId[] = ["audit", "scratch", "sharpen", "diagnose"];
