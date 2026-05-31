@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useTypewriter } from "@/lib/useTypewriter";
+import { GrainMark } from "@/components/Logo";
 
 /* ================================================================
    GRAIN — Enterprise landing page
@@ -47,8 +48,13 @@ export default function Home() {
   const go = useCallback((n: number) => setScene(Math.max(0, Math.min(SCENE_COUNT - 1, n))), []);
 
   useEffect(() => {
-    if (paused || scene >= SCENE_COUNT - 1) return;
-    timer.current = window.setTimeout(() => go(scene + 1), SCENE_DURATIONS[scene]);
+    if (paused) return;
+    // Auto-advance; on the last scene, loop back to scene 0 after 8s
+    const dur = scene >= SCENE_COUNT - 1 ? 8000 : SCENE_DURATIONS[scene];
+    timer.current = window.setTimeout(() => {
+      if (scene >= SCENE_COUNT - 1) go(0); // auto-loop
+      else go(scene + 1);
+    }, dur);
     return () => { if (timer.current) clearTimeout(timer.current); };
   }, [scene, paused, go]);
 
@@ -67,16 +73,13 @@ export default function Home() {
       {/* ── TOP NAV ── */}
       <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(250,250,247,.92)", backdropFilter: "blur(20px) saturate(180%)", borderBottom: `1px solid ${T.border}` }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 32px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 9, background: T.fg, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontFamily: T.serif, fontSize: 17, fontWeight: 500, color: "#fff", fontStyle: "italic", letterSpacing: "-.01em" }}>G</span>
-            </div>
-            <span style={{ fontFamily: T.sans, fontSize: 16, fontWeight: 600, letterSpacing: "-.018em", color: T.fg }}>Grain</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+            <GrainMark size="sm" variant="dark" />
+            <span style={{ fontFamily: T.serif, fontSize: 18, fontWeight: 400, fontStyle: "italic", letterSpacing: "-.02em", color: T.fg }}>Grain</span>
           </div>
           <nav style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            {["How it works", "The output"].map(l => (
-              <a key={l} href="#how" style={{ fontFamily: T.sans, fontSize: 14, color: T.fgMuted, padding: "7px 13px", borderRadius: 8, textDecoration: "none", fontWeight: 500 }}>{l}</a>
-            ))}
+            <a href="#how" style={{ fontFamily: T.sans, fontSize: 14, color: T.fgMuted, padding: "7px 13px", borderRadius: 8, textDecoration: "none", fontWeight: 500 }}>How it works</a>
+            <Link href="/brand" style={{ fontFamily: T.sans, fontSize: 14, color: T.fgMuted, padding: "7px 13px", borderRadius: 8, textDecoration: "none", fontWeight: 500 }}>Brand kit</Link>
             <Link href="/try" style={{ marginLeft: 6, fontFamily: T.sans, fontSize: 14, fontWeight: 600, padding: "9px 20px", borderRadius: 10, background: T.fg, color: "#fff", textDecoration: "none", boxShadow: "0 1px 2px rgba(0,0,0,.12), 0 4px 14px rgba(0,0,0,.08)" }}>
               Try free →
             </Link>
