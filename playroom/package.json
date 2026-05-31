@@ -1,0 +1,30 @@
+{
+  "name": "grain-offer-researcher",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Grain — the Offer Researcher. No advice. A verdict on your offer. Reads the researcher folder at request time and drives a live investigation via Claude.",
+  "scripts": {
+    "sync": "node scripts/sync-researcher.mjs",
+    "predev": "node scripts/sync-researcher.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/sync-researcher.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.1",
+    "next": "^14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.0"
+  }
+}

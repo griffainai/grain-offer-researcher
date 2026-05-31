@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    background-color: #F5F5F7;
+    color: #1D1D1F;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  * { box-sizing: border-box; }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #C7C7CC; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #8E8E93; }
+}
+
+@layer components {
+  /* Cards — Apple-style elevation */
+  .card {
+    @apply bg-bg-surface rounded-2xl;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 6px 18px rgba(0,0,0,0.07);
+  }
+  .card-sm {
+    @apply bg-bg-surface rounded-xl;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .card-flat {
+    @apply bg-bg-surface rounded-2xl border border-line;
+  }
+
+  /* Section container */
+  .container-grain { @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+  /* Pill chips — mode selector */
+  .mode-chip {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 rounded-pill text-sm font-medium transition-all cursor-pointer select-none;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-bg-surface hover:opacity-90 active:opacity-80;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .btn-scratch {
+    @apply btn bg-scratch text-white hover:bg-scratch-deep active:opacity-90;
+    box-shadow: 0 2px 8px rgba(0,113,227,0.25);
+  }
+  .btn-sharpen {
+    @apply btn bg-sharpen text-white hover:bg-sharpen-deep active:opacity-90;
+    box-shadow: 0 2px 8px rgba(52,199,89,0.25);
+  }
+  .btn-ghost {
+    @apply btn text-ink-secondary hover:text-ink hover:bg-bg-hover;
+  }
+
+  /* Source tier badges — inline */
+  .tier-pill {
+    @apply inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-pill;
+  }
+
+  /* Tags / labels */
+  .label {
+    @apply text-xs font-semibold uppercase tracking-wider text-ink-tertiary;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* --------- ANIMATIONS --------- */
+
+/* Page / section fade-up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.fade-up-sm { animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Stagger children */
+.stagger > * { opacity: 0; animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+.stagger > *:nth-child(6) { animation-delay: 300ms; }
+
+/* Typing indicator */
+@keyframes typingDot { 0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+.typing-dot { animation: typingDot 1.2s ease-in-out infinite; display: inline-block; }
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.30s; }
+
+/* Typewriter cursor */
+@keyframes blinkCursor { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.cursor::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: -0.05em;
+  border-radius: 1px;
+  animation: blinkCursor 1s steps(1) infinite;
+}
+
+/* Progress dot pulse */
+@keyframes dotPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); } }
+.dot-active { animation: dotPulse 1.4s ease-in-out infinite; }
+
+/* Kill-condition slide */
+@keyframes killSlide { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
+.kill-slide { animation: killSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Tier badge pop */
+@keyframes tierPop { from { opacity: 0; transform: scale(0.75); } to { opacity: 1; transform: scale(1); } }
+.tier-pop { animation: tierPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* Gentle float for the hero icon */
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.float { animation: float 3.5s ease-in-out infinite; }
+
+/* Scene progress bar */
+@keyframes progressBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Gradient blob — gentle bg accent */
+.blob {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: blobMorph 8s ease-in-out infinite alternate;
+  filter: blur(60px);
+  opacity: 0.12;
+}
+@keyframes blobMorph {
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  100% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
